@@ -15,7 +15,8 @@ Business Requirements:
     1. Menu Management
         • Features:
             - Add, remove, and update menu items.
-            - Each menu item should include a name, description, price, category (e.g., appetizer, main course, dessert), and availability status.
+            - Each menu item should include a name, description, price, 
+              category (e.g., appetizer, main course, dessert), and availability status.
         • Backend:
             - Spring Boot REST API for managing menu items.
             - Hibernate for CRUD operations on the PostgreSQL database.
@@ -28,7 +29,8 @@ Business Requirements:
     2. Reservation Management
         • Features:
             - Add, remove, and view reservations.
-            - Reservations should include customer information (first name, last name, phone number), date and time, number of people, and status (confirmed, pending, canceled).
+            - Reservations should include customer information (first name, last name, phone number), 
+              date and time, number of people, and status (confirmed, pending, canceled).
         • Backend:
             - Spring Boot REST API for managing reservations.
             - Hibernate for CRUD operations on the PostgreSQL database.
@@ -40,8 +42,10 @@ Business Requirements:
 
     3. Order Management
         • Features:
-            - Add orders, assign them to tables, and update their status (placed, in preparation, ready, delivered).
-            - Orders should include a list of menu items with quantities, assigned table, and the waiter responsible for the order.
+            - Add orders, assign them to tables, and update their status (placed, in preparation, 
+              ready, delivered).
+            - Orders should include a list of menu items with quantities, 
+              assigned table, and the waiter responsible for the order.
         • Backend:
             - Spring Boot REST API for managing orders.
             - Hibernate for CRUD operations on the PostgreSQL database.
@@ -67,7 +71,8 @@ Business Requirements:
     5. Employee Management
         • Features:
             - Add, remove, and update employee information.
-            - Employees should have a unique identifier, first name, last name, position (waiter, chef, manager), phone number, and email.
+            - Employees should have a unique identifier, first name, last name, 
+              position (waiter, chef, manager), phone number, and email.
         • Backend:
             - Spring Boot REST API for managing employees.
             - Hibernate for CRUD operations on the PostgreSQL database.
