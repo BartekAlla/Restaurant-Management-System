@@ -24,6 +24,7 @@ public class Menu {
             inverseJoinColumns = @JoinColumn(name = "menu_category_id")
     )
     private Set<MenuCategory> menuCategories = new HashSet<>();
+
     public Menu() {
         this.menuCategories = new HashSet<>();
     }

@@ -6,6 +6,7 @@ import pl.prg.ba.restaurantmanagementbackend.entity.category.MenuCategory;
 import pl.prg.ba.restaurantmanagementbackend.entity.category.MenuCategoryType;
 import pl.prg.ba.restaurantmanagementbackend.entity.menu.Menu;
 import pl.prg.ba.restaurantmanagementbackend.entity.menuItem.MenuItem;
+import pl.prg.ba.restaurantmanagementbackend.model.Ingredient;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,16 +17,17 @@ public class MenuTest {
     private Menu menu;
     private MenuCategory mainCourseCategory;
     private MenuCategory dessertCategory;
+
     @BeforeEach
     public void setUp() {
         menu = new Menu();
 
         HashSet<MenuItem> mainCourseItems = new HashSet<>();
-        mainCourseItems.add(new MenuItem("Steak", "Juicy grilled steak", new HashSet<>(Set.of("Beef", "Spices")), 25.99, true));
+        mainCourseItems.add(new MenuItem("Steak", "Juicy grilled steak", new HashSet<>(Set.of(new Ingredient(1L, "Beef"), new Ingredient(2l, "Spices"))), 25.99, true));
         mainCourseCategory = new MenuCategory(MenuCategoryType.MAIN, mainCourseItems);
 
         HashSet<MenuItem> dessertItems = new HashSet<>();
-        dessertItems.add(new MenuItem("Cheesecake", "Delicious cheesecake", new HashSet<>(Set.of("Cheese", "Sugar")), 6.99, true));
+        dessertItems.add(new MenuItem("Cheesecake", "Delicious cheesecake", new HashSet<>(Set.of(new Ingredient(1l, "Cheese"), new Ingredient(2l, "Sugar"))), 6.99, true));
         dessertCategory = new MenuCategory(MenuCategoryType.DESSERT, dessertItems);
     }
 

@@ -3,9 +3,11 @@ package pl.prg.ba.restaurantmanagementbackend;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.prg.ba.restaurantmanagementbackend.entity.menuItem.MenuItem;
+import pl.prg.ba.restaurantmanagementbackend.model.Ingredient;
 
 
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,47 +15,45 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MenuItemTest {
     private String name;
     private String description;
-    private HashSet<String> ingredients;
+    private HashSet<Ingredient> ingredients;
     private Double price;
-    private boolean availableStatus;
+    private Boolean availableStatus;
 
     @BeforeEach
     public void setUp() {
         name = "Pizza";
         description = "Delicious pizza";
-        ingredients = new HashSet<>();
-        ingredients.add("Ham");
-        ingredients.add("Cheese");
+        ingredients = new HashSet<>(Set.of(new Ingredient(1L, "Ham"), new Ingredient(2l, "Cheese")));
         price = 10.99;
         availableStatus = true;
     }
-    private MenuItem createMenuItem(String name, String description, HashSet<String> ingredients, Double price, boolean available) {
+
+    private MenuItem createMenuItem(String name, String description, HashSet<Ingredient> ingredients, Double price, boolean available) {
         return new MenuItem(name, description, ingredients, price, available);
     }
 
     @Test
-    public void testMenuItemProperties(){
+    public void testMenuItemProperties() {
 
         MenuItem menuItem = createMenuItem(name, description, ingredients, price, availableStatus);
 
 
         assertEquals(name, menuItem.getName());
         assertEquals(description, menuItem.getDescription());
-        String[] testHashSet = {"Ham", "Cheese"};
-        assertArrayEquals(ingredients.toArray(), testHashSet);
+        Ingredient[] testIngredientArray = {new Ingredient(1L, "Ham"), new Ingredient(2L, "Cheese")};
+        assertArrayEquals(ingredients.toArray(), testIngredientArray);
         assertEquals(price, menuItem.getPrice(), 0.01);
-        assertEquals(availableStatus, menuItem.isAvailabilityStatus());
+        assertEquals(availableStatus, menuItem.getAvailabilityStatus());
     }
+
     @Test
-    public void testMenuItemPropertiesAfterChange(){
+    public void testMenuItemPropertiesAfterChange() {
 
 
         MenuItem menuItem = createMenuItem(name, description, ingredients, price, availableStatus);
         String newName = "Salad";
         String newDescription = "Delicious salad";
-        HashSet<String> newIngredients = new HashSet<>();
-        newIngredients.add("Tomato");
-        newIngredients.add("Salad");
+        HashSet<Ingredient> newIngredients = new HashSet<>(Set.of(new Ingredient(1L, "Tomato"), new Ingredient(2l, "Salad")));
         Double newPrice = 5.66;
         boolean newAvailableStatus = false;
 
@@ -65,11 +65,12 @@ public class MenuItemTest {
 
         assertEquals(newName, menuItem.getName());
         assertEquals(newDescription, menuItem.getDescription());
-        String[] testHashSet = {"Tomato", "Salad"};
+        Ingredient[] testHashSet = {new Ingredient(1L, "Tomato"), new Ingredient(2L, "Salad")};
         assertArrayEquals(newIngredients.toArray(), testHashSet);
         assertEquals(newPrice, menuItem.getPrice(), 0.01);
-        assertEquals(newAvailableStatus, menuItem.isAvailabilityStatus());
+        assertEquals(newAvailableStatus, menuItem.getAvailabilityStatus());
     }
+
     @Test
     public void testUnicodeCharactersInNameAndDescription() {
 
@@ -81,6 +82,7 @@ public class MenuItemTest {
         assertEquals(unicodeName, menuItem.getName());
         assertEquals(unicodeDescription, menuItem.getDescription());
     }
+
     @Test
     public void testNegativePrice() {
 
@@ -93,6 +95,7 @@ public class MenuItemTest {
             assertEquals("Price cannot be negative", e.getMessage());
         }
     }
+
     @Test
     public void testUnrealItemPrice() {
 
@@ -105,6 +108,7 @@ public class MenuItemTest {
             assertEquals("Price cannot be higher than " + MenuItem.MAX_MENU_ITEM_PRICE, e.getMessage());
         }
     }
+
     @Test
     public void testEmptyIngredientsSet() {
 
@@ -117,6 +121,7 @@ public class MenuItemTest {
             assertEquals("Ingredient set cannot be empty", e.getMessage());
         }
     }
+
     @Test
     public void testNullIngredients() {
         try {
@@ -126,20 +131,22 @@ public class MenuItemTest {
             assertEquals("Ingredients set cannot be null", e.getMessage());
         }
     }
+
     @Test
     public void testDuplicateIngredients() {
 
-        HashSet<String> duplicateIngredients = new HashSet<>();
-        duplicateIngredients.add("Ham");
-        duplicateIngredients.add("Cheese");
-        duplicateIngredients.add("Ham");
+        HashSet<Ingredient> duplicateIngredients = new HashSet<>();
+        duplicateIngredients.add(new Ingredient(1l, "Ham"));
+        duplicateIngredients.add(new Ingredient(2l, "Cheese"));
+        duplicateIngredients.add(new Ingredient(1l, "Ham"));
 
         MenuItem menuItem = new MenuItem(name, description, duplicateIngredients, price, availableStatus);
 
         assertEquals(2, menuItem.getIngredients().size());
-        assertTrue(menuItem.getIngredients().contains("Ham"));
-        assertTrue(menuItem.getIngredients().contains("Cheese"));
+        assertTrue(menuItem.getIngredients().contains(new Ingredient(1l, "Ham")));
+        assertTrue(menuItem.getIngredients().contains(new Ingredient(2l, "Cheese")));
     }
+
     @Test
     public void testEmptyDishName() {
 
@@ -152,6 +159,7 @@ public class MenuItemTest {
             assertEquals("Name cannot be empty String", e.getMessage());
         }
     }
+
     @Test
     public void testDishNameFullOfWhiteSpaces() {
 
@@ -164,6 +172,7 @@ public class MenuItemTest {
             assertEquals("Name cannot contain only white spaces", e.getMessage());
         }
     }
+
     @Test
     public void testNullDishName() {
 
@@ -176,6 +185,7 @@ public class MenuItemTest {
             assertEquals("Name cannot be null", e.getMessage());
         }
     }
+
     @Test
     public void testEmptyDishDescription() {
 
@@ -188,6 +198,7 @@ public class MenuItemTest {
             assertEquals("Description cannot be empty String", e.getMessage());
         }
     }
+
     @Test
     public void testDishDescriptionFullOfWhiteSpaces() {
 
@@ -200,6 +211,7 @@ public class MenuItemTest {
             assertEquals("Description cannot contain only white spaces", e.getMessage());
         }
     }
+
     @Test
     public void testNullDishDescription() {
 
@@ -212,6 +224,7 @@ public class MenuItemTest {
             assertEquals("Description cannot be null", e.getMessage());
         }
     }
+
     @Test
     public void testTooLongDishDescription() {
 
@@ -228,12 +241,14 @@ public class MenuItemTest {
             assertEquals("Description too long - cannot contain more than 500 signs", e.getMessage());
         }
     }
+
     @Test
     public void testIfTwoItemsWithSamePropertiesAreEqual() {
         MenuItem menuItem1 = createMenuItem(name, description, ingredients, price, availableStatus);
         MenuItem menuItem2 = createMenuItem(name, description, ingredients, price, availableStatus);
         assertEquals(menuItem1, menuItem2);
     }
+
     @Test
     public void testIfTwoItemsWithSamePropertiesHaveTheSameHashCode() {
         MenuItem menuItem1 = createMenuItem(name, description, ingredients, price, availableStatus);

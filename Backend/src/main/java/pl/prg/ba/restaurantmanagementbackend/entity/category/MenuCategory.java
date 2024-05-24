@@ -30,6 +30,7 @@ public class MenuCategory {
     private Set<MenuItem> menuItems = new HashSet<>();
     @ManyToMany(mappedBy = "menuCategories")
     private Set<Menu> menus = new HashSet<>();
+
     public MenuCategory(MenuCategoryType menuCategoryType, HashSet<MenuItem> menuItems) throws NullPointerException {
         validateMenuCategoryType(menuCategoryType);
         this.menuItems = menuItems != null ? menuItems : new HashSet<>();
@@ -41,10 +42,16 @@ public class MenuCategory {
         }
         this.menuCategoryType = menuCategoryType;
     }
+
     public void addMenuItem(MenuItem menuItem) {
         menuItems.add(menuItem);
     }
+
     public void removeMenuItem(MenuItem menuItem) {
         menuItems.remove(menuItem);
+    }
+
+    public void setMenuCategoryType(MenuCategoryType menuCategoryType) {
+        validateMenuCategoryType(menuCategoryType);
     }
 }

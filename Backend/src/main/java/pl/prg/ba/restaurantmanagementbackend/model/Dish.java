@@ -1,21 +1,39 @@
 package pl.prg.ba.restaurantmanagementbackend.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.prg.ba.restaurantmanagementbackend.entity.menuItem.MenuItem;
 
 import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Data
+@Getter
 @NoArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype")
+@Table(name = "dishes")
 public class Dish {
     public static final int MAX_DESCRIPTION_LENGTH = 500;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     protected String name;
     protected String description;
-    //TODO
-    // Make ingredients as seperate class which is connected as MANY-TO-MANY with dishes
-    protected HashSet<String> ingredients;
+    @ManyToMany
+    @JoinTable(
+            name = "ingretient_dishes",
+            joinColumns = @JoinColumn(name = "dish_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> ingredients = new HashSet<>();
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MenuItem> menuItems = new HashSet<>();
 
-    public Dish(String name, String description, HashSet<String> ingredients) throws NullPointerException, IllegalArgumentException {
+    public Dish(String name, String description, HashSet<Ingredient> ingredients) throws NullPointerException, IllegalArgumentException {
         validateDishName(name);
         validateDescription(description);
         validateIngredientsSet(ingredients);
@@ -47,7 +65,7 @@ public class Dish {
 
     }
 
-    private void validateIngredientsSet(HashSet<String> ingredients) throws IllegalArgumentException, NullPointerException {
+    private void validateIngredientsSet(Set<Ingredient> ingredients) throws IllegalArgumentException, NullPointerException {
         if (ingredients == null) {
             throw new NullPointerException("Ingredients set cannot be null");
         } else if (ingredients.isEmpty()) {
@@ -55,6 +73,31 @@ public class Dish {
         }
         this.ingredients = ingredients;
 
+    }
+
+    public void setName(String name) {
+        validateDishName(name);
+    }
+
+    public void setDescription(String description) {
+        validateDescription(description);
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        validateIngredientsSet(ingredients);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Dish)) return false;
+        Dish dish = (Dish) o;
+        return Objects.equals(name, dish.name) && Objects.equals(description, dish.description) && Objects.equals(ingredients, dish.ingredients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, ingredients);
     }
 
 }
