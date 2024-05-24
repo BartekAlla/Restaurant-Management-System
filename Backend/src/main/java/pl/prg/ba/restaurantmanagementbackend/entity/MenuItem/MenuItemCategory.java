@@ -1,4 +1,4 @@
-package pl.prg.ba.restaurantmanagementbackend;
+package pl.prg.ba.restaurantmanagementbackend.entity.MenuItem;
 
 public enum MenuItemCategory {
     APPETIZER,
@@ -9,5 +9,4 @@ public enum MenuItemCategory {
     DESSERT,
     BEVERAGES,
     SPECIAL
-
 }

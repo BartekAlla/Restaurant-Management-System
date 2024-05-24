@@ -1,8 +1,7 @@
-package pl.prg.ba.restaurantmanagementbackend.entity;
+package pl.prg.ba.restaurantmanagementbackend.entity.MenuItem;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import pl.prg.ba.restaurantmanagementbackend.MenuItemCategory;
 import pl.prg.ba.restaurantmanagementbackend.model.Dish;
 
 import java.util.HashSet;
@@ -15,8 +14,16 @@ public class MenuItem extends Dish {
     private boolean availabilityStatus;
     public MenuItem(String name, String description, HashSet<String> ingredients, Double price, MenuItemCategory category, boolean availabilityStatus) {
         super(name, description, ingredients);
-        this.price = price;
+        validateMenuItemPrice(price);
         this.category = category;
         this.availabilityStatus = availabilityStatus;
+    }
+
+    private void validateMenuItemPrice(Double price) throws IllegalArgumentException {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        } else {
+            this.price = price;
+        }
     }
 }

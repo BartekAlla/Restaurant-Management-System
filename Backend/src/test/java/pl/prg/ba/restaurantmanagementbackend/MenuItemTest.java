@@ -1,7 +1,9 @@
 package pl.prg.ba.restaurantmanagementbackend;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.prg.ba.restaurantmanagementbackend.entity.MenuItem;
+import pl.prg.ba.restaurantmanagementbackend.entity.MenuItem.MenuItem;
+import pl.prg.ba.restaurantmanagementbackend.entity.MenuItem.MenuItemCategory;
 
 
 import java.util.HashSet;
@@ -11,20 +13,32 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MenuItemTest {
-    @Test
-    public void testMenuItemProperties(){
-        // Given
-        String name = "Pizza";
-        String description = "Delicious pizza";
-        HashSet<String> ingredients = new HashSet<>();
+    private String name;
+    private String description;
+    private HashSet<String> ingredients;
+    private Double price;
+    private MenuItemCategory category;
+    private boolean available;
+
+    @BeforeEach
+    public void setUp() {
+        name = "Pizza";
+        description = "Delicious pizza";
+        ingredients = new HashSet<>();
         ingredients.add("Ham");
         ingredients.add("Cheese");
-        Double price = 10.99;
-        MenuItemCategory category = MenuItemCategory.MAIN;
-        boolean available = true;
+        price = 10.99;
+        category = MenuItemCategory.MAIN;
+        available = true;
+    }
+    private MenuItem createMenuItem(String name, String description, HashSet<String> ingredients, Double price, MenuItemCategory category, boolean available) {
+        return new MenuItem(name, description, ingredients, price, category, available);
+    }
 
+    @Test
+    public void testMenuItemProperties(){
         // When
-        MenuItem menuItem = new MenuItem(name, description, ingredients, price, category, available);
+        MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
 
         // Then
         assertEquals(name, menuItem.getName());
@@ -35,26 +49,33 @@ public class MenuItemTest {
         assertEquals(category, menuItem.getCategory());
         assertEquals(available, menuItem.isAvailabilityStatus());
     }
-    //TODO CHECK TEST
     @Test
     public void testNegativePrice() {
         // Given
-        String name = "Pizza";
-        String description = "Delicious pizza";
-        HashSet<String> ingredients = new HashSet<>();
-        ingredients.add("Ham");
-        ingredients.add("Cheese");
         Double price = -10.99;
-        MenuItemCategory category = MenuItemCategory.MAIN;
-        boolean available = true;
 
         // When
         try {
-            MenuItem menuItem = new MenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
             assertEquals("Price cannot be negative", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testEmptyIngredientsSet() {
+        // Given
+        ingredients.remove("Ham");
+        ingredients.remove("Cheese");
+        // When
+        try {
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            fail("Expected IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            // Then
+            assertEquals("Ingredient set cannot be empty", e.getMessage());
         }
     }
 }
