@@ -2,11 +2,11 @@ package pl.prg.ba.restaurantmanagementbackend;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.prg.ba.restaurantmanagementbackend.entity.category.MenuCategory;
-import pl.prg.ba.restaurantmanagementbackend.entity.category.MenuCategoryType;
-import pl.prg.ba.restaurantmanagementbackend.entity.menu.Menu;
-import pl.prg.ba.restaurantmanagementbackend.entity.menuItem.MenuItem;
-import pl.prg.ba.restaurantmanagementbackend.model.Ingredient;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategory;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategoryType;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menu.Menu;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem.MenuItem;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Ingredient;
 
 import java.util.HashSet;
 import java.util.Set;

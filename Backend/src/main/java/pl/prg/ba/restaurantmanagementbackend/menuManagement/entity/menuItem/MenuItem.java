@@ -1,12 +1,12 @@
-package pl.prg.ba.restaurantmanagementbackend.entity.menuItem;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import pl.prg.ba.restaurantmanagementbackend.entity.category.MenuCategory;
-import pl.prg.ba.restaurantmanagementbackend.model.Dish;
-import pl.prg.ba.restaurantmanagementbackend.model.Ingredient;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategory;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Dish;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Ingredient;
 
 import java.util.HashSet;
 import java.util.Objects;

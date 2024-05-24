@@ -1,4 +1,4 @@
-package pl.prg.ba.restaurantmanagementbackend.entity.category;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category;
 
 public enum MenuCategoryType {
     APPETIZER,

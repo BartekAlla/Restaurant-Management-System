@@ -1,4 +1,4 @@
-package pl.prg.ba.restaurantmanagementbackend.model;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
