@@ -14,10 +14,9 @@ public class MenuItem extends Dish {
     private Double price;
     private boolean availabilityStatus;
 
-    public MenuItem(String name, String description, HashSet<String> ingredients, Double price, boolean availabilityStatus) {
+    public MenuItem(String name, String description, HashSet<String> ingredients, Double price, boolean availabilityStatus) throws IllegalArgumentException, NullPointerException {
         super(name, description, ingredients);
         validateMenuItemPrice(price);
-
         this.availabilityStatus = availabilityStatus;
     }
 
