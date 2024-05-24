@@ -63,7 +63,19 @@ public class MenuItemTest {
             assertEquals("Price cannot be negative", e.getMessage());
         }
     }
-
+    @Test
+    public void testUnrealItemPrice() {
+        // Given
+        price = 201.0;
+        // When
+        try {
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            fail("Expected IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            // Then
+            assertEquals("Price cannot be higher than 200", e.getMessage());
+        }
+    }
     @Test
     public void testEmptyIngredientsSet() {
         // Given
@@ -130,4 +142,5 @@ public class MenuItemTest {
             assertEquals("Category cannot be null", e.getMessage());
         }
     }
+
 }

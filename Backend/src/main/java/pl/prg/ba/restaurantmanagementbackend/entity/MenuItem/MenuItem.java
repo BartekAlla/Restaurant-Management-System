@@ -10,6 +10,8 @@ import java.util.HashSet;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MenuItem extends Dish {
+    private static Double MIN_MENU_ITEM_PRICE = 0.0;
+    private static Double MAX_MENU_ITEM_PRICE = 200.0;
     private Double price;
     private MenuItemCategory category;
     private boolean availabilityStatus;
@@ -29,8 +31,10 @@ public class MenuItem extends Dish {
     }
 
     private void validateMenuItemPrice(Double price) throws IllegalArgumentException {
-        if (price < 0) {
+        if (price < MIN_MENU_ITEM_PRICE) {
             throw new IllegalArgumentException("Price cannot be negative");
+        } else if (price > MAX_MENU_ITEM_PRICE) {
+            throw new IllegalArgumentException("Price cannot be higher than 200");
         } else {
             this.price = price;
         }
