@@ -117,4 +117,17 @@ public class MenuItemTest {
             assertEquals("Name cannot be null", e.getMessage());
         }
     }
+    @Test
+    public void testNullMenuItemCategory() {
+        // Given
+        category = null;
+        // When
+        try {
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            fail("Expected NullPointerException to be thrown");
+        } catch (NullPointerException e) {
+            // Then
+            assertEquals("Category cannot be null", e.getMessage());
+        }
+    }
 }

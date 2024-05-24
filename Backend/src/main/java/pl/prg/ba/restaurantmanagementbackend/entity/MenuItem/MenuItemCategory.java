@@ -8,5 +8,6 @@ public enum MenuItemCategory {
     SALAD,
     DESSERT,
     BEVERAGES,
-    SPECIAL
+    SPECIAL,
+    NOT_DEFINED
 }
