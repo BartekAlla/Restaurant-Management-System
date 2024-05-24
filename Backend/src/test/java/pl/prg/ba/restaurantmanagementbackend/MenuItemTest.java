@@ -78,4 +78,43 @@ public class MenuItemTest {
             assertEquals("Ingredient set cannot be empty", e.getMessage());
         }
     }
+    @Test
+    public void testEmptyDishName() {
+        // Given
+        name = "";
+        // When
+        try {
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            fail("Expected IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            // Then
+            assertEquals("Name cannot be empty String", e.getMessage());
+        }
+    }
+    @Test
+    public void testDishNameFullOfWhiteSpaces() {
+        // Given
+        name = "     ";
+        // When
+        try {
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            fail("Expected IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            // Then
+            assertEquals("Name cannot contain only white spaces", e.getMessage());
+        }
+    }
+    @Test
+    public void testNullDishName() {
+        // Given
+        name = null;
+        // When
+        try {
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            fail("Expected NullPointerException to be thrown");
+        } catch (NullPointerException e) {
+            // Then
+            assertEquals("Name cannot be null", e.getMessage());
+        }
+    }
 }
