@@ -11,6 +11,8 @@ public class Dish {
     public static final int MAX_DESCRIPTION_LENGTH = 500;
     protected String name;
     protected String description;
+    //TODO
+    // Make ingredients as seperate class which is connected as MANY-TO-MANY with dishes
     protected HashSet<String> ingredients;
 
     public Dish(String name, String description, HashSet<String> ingredients) throws NullPointerException, IllegalArgumentException {

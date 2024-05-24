@@ -10,6 +10,8 @@ import pl.prg.ba.restaurantmanagementbackend.model.Dish;
 import java.util.HashSet;
 import java.util.Set;
 
+//TODO
+// Find a way to inherit Dish properties to MenuItem
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
