@@ -1,4 +1,4 @@
-package pl.prg.ba.restaurantmanagementbackend;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

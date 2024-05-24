@@ -1,4 +1,4 @@
-package pl.prg.ba.restaurantmanagementbackend;
+package pl.prg.ba.restaurantmanagementbackend.common;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
