@@ -1,7 +1,7 @@
 Project: Restaurant Management System
 Technologies:
 
-    1. Backend: Spring Boot, Hibernate (JPA)
+    1. Backend: Java, Spring Boot, Hibernate (JPA) 
     2. Frontend: React
     3. Database: PostgreSQL
     4. API: RESTful API
