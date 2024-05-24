@@ -1,4 +1,4 @@
-package pl.prg.ba.restaurantmanagementbackend.entity.MenuItem;
+package pl.prg.ba.restaurantmanagementbackend.entity.menuItem;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
