@@ -20,13 +20,20 @@ public class Dish {
     }
 
     private void validateDishName(String name) {
-        if (name.isEmpty()) {
+        if (name == null) {
+            handleNullName();
+        }
+        else if (name.isEmpty()) {
             handleEmptyName();
         } else if (name.isBlank()) {
             handleBlankName();
         } else {
             this.name = name;
         }
+    }
+
+    private void handleNullName() throws NullPointerException{
+        throw new NullPointerException("Name cannot be null");
     }
 
     private void handleBlankName() throws IllegalArgumentException {
