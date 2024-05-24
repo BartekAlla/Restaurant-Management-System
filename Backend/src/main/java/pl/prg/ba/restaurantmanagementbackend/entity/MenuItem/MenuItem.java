@@ -1,6 +1,5 @@
 package pl.prg.ba.restaurantmanagementbackend.entity.MenuItem;
 
-import jakarta.validation.constraints.Null;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import pl.prg.ba.restaurantmanagementbackend.model.Dish;
