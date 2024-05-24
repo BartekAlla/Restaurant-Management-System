@@ -1,6 +1,6 @@
-package pl.prg.ba.restaurantmanagementbackend.entity.menuItem;
+package pl.prg.ba.restaurantmanagementbackend.entity.menu;
 
-public enum MenuItemCategory {
+public enum MenuCategory {
     APPETIZER,
     SOUP,
     MAIN,

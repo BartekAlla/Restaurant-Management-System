@@ -8,7 +8,7 @@ import java.util.HashSet;
 @Data
 @NoArgsConstructor
 public class Dish {
-    private static int MAX_DESCRIPTION_LENGTH = 500;
+    public static final int MAX_DESCRIPTION_LENGTH = 500;
     protected String name;
     protected String description;
     protected HashSet<String> ingredients;
@@ -21,73 +21,38 @@ public class Dish {
 
     private void validateDescription(String description) throws NullPointerException, IllegalArgumentException {
         if (description == null) {
-            handleNullDescription();
-        } else if (description.length() > MAX_DESCRIPTION_LENGTH){
-            handleTooLongDescription();
+            throw new NullPointerException("Description cannot be null");
+        } else if (description.length() > MAX_DESCRIPTION_LENGTH) {
+            throw new IllegalArgumentException("Description too long - cannot contain more than 500 signs");
         } else if (description.isEmpty()) {
-            handleEmptyDescription();
+            throw new IllegalArgumentException("Description cannot be empty String");
         } else if (description.isBlank()) {
-            handleBlankDescription();
-        } else {
-            this.description = description;
+            throw new IllegalArgumentException("Description cannot contain only white spaces");
         }
-    }
+        this.description = description;
 
-    private void handleTooLongDescription() throws IllegalArgumentException {
-        throw new IllegalArgumentException("Description too long - cannot contain more than 500 signs");
-    }
-
-    private void handleBlankDescription() throws IllegalArgumentException {
-        throw new IllegalArgumentException("Description cannot contain only white spaces");
-    }
-
-    private void handleEmptyDescription() throws IllegalArgumentException {
-        throw new IllegalArgumentException("Description cannot be empty String");
-    }
-
-    private void handleNullDescription() throws NullPointerException {
-        throw new NullPointerException("Description cannot be null");
     }
 
     private void validateDishName(String name) throws NullPointerException, IllegalArgumentException {
         if (name == null) {
-            handleNullName();
+            throw new NullPointerException("Name cannot be null");
         } else if (name.isEmpty()) {
-            handleEmptyName();
+            throw new IllegalArgumentException("Name cannot be empty String");
         } else if (name.isBlank()) {
-            handleBlankName();
-        } else {
-            this.name = name;
+            throw new IllegalArgumentException("Name cannot contain only white spaces");
         }
-    }
+        this.name = name;
 
-    private void handleNullName() throws NullPointerException {
-        throw new NullPointerException("Name cannot be null");
-    }
-
-    private void handleBlankName() throws IllegalArgumentException {
-        throw new IllegalArgumentException("Name cannot contain only white spaces");
-    }
-
-    private void handleEmptyName() throws IllegalArgumentException {
-        throw new IllegalArgumentException("Name cannot be empty String");
     }
 
     private void validateIngredientsSet(HashSet<String> ingredients) throws IllegalArgumentException, NullPointerException {
         if (ingredients == null) {
-            handleNullIngredientSet();
+            throw new NullPointerException("Ingredients set cannot be null");
         } else if (ingredients.isEmpty()) {
-            handleEmptyIngredientSet();
-        } else {
-            this.ingredients = ingredients;
+            throw new IllegalArgumentException("Ingredient set cannot be empty");
         }
+        this.ingredients = ingredients;
+
     }
 
-    private void handleNullIngredientSet() throws NullPointerException {
-        throw new NullPointerException("Ingredients set cannot be null");
-    }
-
-    private void handleEmptyIngredientSet() throws IllegalArgumentException {
-        throw new IllegalArgumentException("Ingredient set cannot be empty");
-    }
 }
