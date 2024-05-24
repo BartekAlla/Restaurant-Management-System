@@ -2,7 +2,6 @@ package pl.prg.ba.restaurantmanagementbackend.entity.menuItem;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import pl.prg.ba.restaurantmanagementbackend.entity.menu.MenuCategory;
 import pl.prg.ba.restaurantmanagementbackend.model.Dish;
 
 import java.util.HashSet;
