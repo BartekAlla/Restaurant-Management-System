@@ -6,7 +6,6 @@ import pl.prg.ba.restaurantmanagementbackend.entity.MenuItem.MenuItem;
 import pl.prg.ba.restaurantmanagementbackend.entity.MenuItem.MenuItemCategory;
 
 
-import java.awt.*;
 import java.util.HashSet;
 
 import static org.assertj.core.api.Fail.fail;
@@ -18,7 +17,7 @@ public class MenuItemTest {
     private HashSet<String> ingredients;
     private Double price;
     private MenuItemCategory category;
-    private boolean available;
+    private boolean availableStatus;
 
     @BeforeEach
     public void setUp() {
@@ -29,7 +28,7 @@ public class MenuItemTest {
         ingredients.add("Cheese");
         price = 10.99;
         category = MenuItemCategory.MAIN;
-        available = true;
+        availableStatus = true;
     }
     private MenuItem createMenuItem(String name, String description, HashSet<String> ingredients, Double price, MenuItemCategory category, boolean available) {
         return new MenuItem(name, description, ingredients, price, category, available);
@@ -38,7 +37,7 @@ public class MenuItemTest {
     @Test
     public void testMenuItemProperties(){
         // When
-        MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+        MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
 
         // Then
         assertEquals(name, menuItem.getName());
@@ -47,7 +46,50 @@ public class MenuItemTest {
         assertArrayEquals(ingredients.toArray(), testHashSet);
         assertEquals(price, menuItem.getPrice(), 0.01);
         assertEquals(category, menuItem.getCategory());
-        assertEquals(available, menuItem.isAvailabilityStatus());
+        assertEquals(availableStatus, menuItem.isAvailabilityStatus());
+    }
+    @Test
+    public void testMenuItemPropertiesChange(){
+        // When
+
+        MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
+        String newName = "Salad";
+        String newDescription = "Delicious salad";
+        HashSet<String> newIngredients = new HashSet<>();
+        newIngredients.add("Tomato");
+        newIngredients.add("Salad");
+        Double newPrice = 5.66;
+        MenuItemCategory newCategory = MenuItemCategory.SALAD;
+        boolean newAvailableStatus = false;
+
+        menuItem.setName(newName);
+        menuItem.setDescription(newDescription);
+        menuItem.setIngredients(newIngredients);
+        menuItem.setPrice(newPrice);
+        menuItem.setCategory(newCategory);
+        menuItem.setAvailabilityStatus(newAvailableStatus);
+
+        // Then
+        assertEquals(newName, menuItem.getName());
+        assertEquals(newDescription, menuItem.getDescription());
+        String[] testHashSet = {"Tomato", "Salad"};
+        assertArrayEquals(newIngredients.toArray(), testHashSet);
+        assertEquals(newPrice, menuItem.getPrice(), 0.01);
+        assertEquals(newCategory, menuItem.getCategory());
+        assertEquals(newAvailableStatus, menuItem.isAvailabilityStatus());
+    }
+    @Test
+    public void testUnicodeCharactersInNameAndDescription() {
+        // Given
+        String unicodeName = "Pizzáęą\uD83E\uDEBC";
+        String unicodeDescription = "Délicious pizza with chęese and ham";
+
+        // When
+        MenuItem menuItem = new MenuItem(unicodeName, unicodeDescription, ingredients, price, category, availableStatus);
+
+        // Then
+        assertEquals(unicodeName, menuItem.getName());
+        assertEquals(unicodeDescription, menuItem.getDescription());
     }
     @Test
     public void testNegativePrice() {
@@ -56,7 +98,7 @@ public class MenuItemTest {
 
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
@@ -69,7 +111,7 @@ public class MenuItemTest {
         price = 201.0;
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
@@ -83,7 +125,7 @@ public class MenuItemTest {
         ingredients.remove("Cheese");
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
@@ -94,7 +136,7 @@ public class MenuItemTest {
     public void testNullIngredients() {
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, null, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, null, price, category, availableStatus);
             fail("Expected NullPointerException to be thrown");
         } catch (NullPointerException e) {
             // Then
@@ -102,12 +144,29 @@ public class MenuItemTest {
         }
     }
     @Test
+    public void testDuplicateIngredients() {
+        // Given
+        HashSet<String> duplicateIngredients = new HashSet<>();
+        duplicateIngredients.add("Ham");
+        duplicateIngredients.add("Cheese");
+        duplicateIngredients.add("Ham");
+
+        // When
+        MenuItem menuItem = new MenuItem(name, description, duplicateIngredients, price, category, availableStatus);
+
+        // Then
+        // Checking that "Ham" is not duplicated
+        assertEquals(2, menuItem.getIngredients().size());
+        assertTrue(menuItem.getIngredients().contains("Ham"));
+        assertTrue(menuItem.getIngredients().contains("Cheese"));
+    }
+    @Test
     public void testEmptyDishName() {
         // Given
         name = "";
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
@@ -120,7 +179,7 @@ public class MenuItemTest {
         name = "     ";
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
@@ -133,7 +192,7 @@ public class MenuItemTest {
         name = null;
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected NullPointerException to be thrown");
         } catch (NullPointerException e) {
             // Then
@@ -146,7 +205,7 @@ public class MenuItemTest {
         description = "";
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
@@ -159,7 +218,7 @@ public class MenuItemTest {
         description = "     ";
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             // Then
@@ -172,7 +231,7 @@ public class MenuItemTest {
         description = null;
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected NullPointerException to be thrown");
         } catch (NullPointerException e) {
             // Then
@@ -189,7 +248,7 @@ public class MenuItemTest {
                 "Sed pretium vel sem id mollis. Donec rutrum convallis mauris quis sollicitudin. Nulla pretium eros vulputate elit faucibus consequat. Suspendisse potenti. Donec elementum ut tortor sit amet varius. Vestibulum eu nisi non ex venenatis luctus. Morbi quis nunc elementum, placerat felis sit amet, commodo sem. Donec vitae nisi dictum, placerat est eget, aliquet lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer vel auctor lorem, vitae consectetur mi. Donec gravida. ";
         //When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException e) {
             //Then
@@ -202,7 +261,7 @@ public class MenuItemTest {
         category = null;
         // When
         try {
-            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, available);
+            MenuItem menuItem = createMenuItem(name, description, ingredients, price, category, availableStatus);
             fail("Expected NullPointerException to be thrown");
         } catch (NullPointerException e) {
             // Then
@@ -211,14 +270,14 @@ public class MenuItemTest {
     }
     @Test
     public void testIfTwoItemsWithSamePropertiesAreEqual() {
-        MenuItem menuItem1 = createMenuItem(name, description, ingredients, price, category, available);
-        MenuItem menuItem2 = createMenuItem(name, description, ingredients, price, category, available);
+        MenuItem menuItem1 = createMenuItem(name, description, ingredients, price, category, availableStatus);
+        MenuItem menuItem2 = createMenuItem(name, description, ingredients, price, category, availableStatus);
         assertEquals(menuItem1, menuItem2);
     }
     @Test
     public void testIfTwoItemsWithSamePropertiesHaveTheSameHashCode() {
-        MenuItem menuItem1 = createMenuItem(name, description, ingredients, price, category, available);
-        MenuItem menuItem2 = createMenuItem(name, description, ingredients, price, category, available);
+        MenuItem menuItem1 = createMenuItem(name, description, ingredients, price, category, availableStatus);
+        MenuItem menuItem2 = createMenuItem(name, description, ingredients, price, category, availableStatus);
         assertEquals(menuItem1.hashCode(), menuItem2.hashCode());
     }
 
