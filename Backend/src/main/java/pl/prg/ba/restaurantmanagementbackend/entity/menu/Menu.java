@@ -1,16 +1,29 @@
 package pl.prg.ba.restaurantmanagementbackend.entity.menu;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import pl.prg.ba.restaurantmanagementbackend.entity.category.MenuCategory;
 import pl.prg.ba.restaurantmanagementbackend.entity.category.MenuCategoryType;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Data
-public class Menu {
-    private HashSet<MenuCategory> menuCategories;
 
+@Entity
+@Table(name = "menus")
+public class Menu {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToMany
+    @JoinTable(
+            name = "menu_category_menus",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_category_id")
+    )
+    private Set<MenuCategory> menuCategories = new HashSet<>();
     public Menu() {
         this.menuCategories = new HashSet<>();
     }
