@@ -3,7 +3,7 @@ package pl.prg.ba.restaurantmanagementbackend.menuManagement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Dish;
-import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Ingredient;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 
 import java.util.HashSet;
 import java.util.Set;

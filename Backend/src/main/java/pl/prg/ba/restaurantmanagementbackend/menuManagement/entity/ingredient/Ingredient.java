@@ -1,8 +1,9 @@
-package pl.prg.ba.restaurantmanagementbackend.menuManagement.model;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Dish;
 
 import java.util.HashSet;
 import java.util.Objects;

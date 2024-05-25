@@ -23,7 +23,7 @@ public class MenuCategory {
     private MenuCategoryType menuCategoryType;
     @ManyToMany
     @JoinTable(
-            name = "menu_category_items",
+            name = "menu_categories_items",
             joinColumns = @JoinColumn(name = "menu_category_id"),
             inverseJoinColumns = @JoinColumn(name = "menu_item_id")
     )

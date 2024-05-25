@@ -3,6 +3,7 @@ package pl.prg.ba.restaurantmanagementbackend.menuManagement.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem.MenuItem;
 
 import java.util.HashSet;
@@ -24,7 +25,7 @@ public class Dish {
     protected String description;
     @ManyToMany
     @JoinTable(
-            name = "ingretient_dishes",
+            name = "ingredients_dishes",
             joinColumns = @JoinColumn(name = "dish_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )

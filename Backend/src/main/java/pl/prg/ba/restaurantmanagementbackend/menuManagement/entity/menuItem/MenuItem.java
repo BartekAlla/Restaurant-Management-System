@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategory;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Dish;
-import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Ingredient;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,12 +24,11 @@ public class MenuItem extends Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double price;
-    @Column(nullable = false)
     private Boolean availabilityStatus;
     @ManyToMany(mappedBy = "menuItems")
     private Set<MenuCategory> menuCategories = new HashSet<>();
     @ManyToOne
-    @JoinColumn(name = "dish_id", nullable = false)
+    @JoinColumn(name = "dish_id")
     private Dish dish;
 
     public MenuItem(String name, String description, HashSet<Ingredient> ingredients, Double price, Boolean availabilityStatus) throws IllegalArgumentException, NullPointerException {

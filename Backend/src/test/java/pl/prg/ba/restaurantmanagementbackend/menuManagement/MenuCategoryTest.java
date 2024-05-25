@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategory;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategoryType;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem.MenuItem;
-import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Ingredient;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -6,7 +6,7 @@ import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.Menu
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategoryType;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menu.Menu;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem.MenuItem;
-import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Ingredient;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,12 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuTest {
     private Menu menu;
+    private String menuName;
     private MenuCategory mainCourseCategory;
     private MenuCategory dessertCategory;
 
     @BeforeEach
     public void setUp() {
-        menu = new Menu();
+        menuName = "menu";
+        menu = new Menu(menuName);
 
         HashSet<MenuItem> mainCourseItems = new HashSet<>();
         mainCourseItems.add(new MenuItem("Steak", "Juicy grilled steak", new HashSet<>(Set.of(new Ingredient(1L, "Beef"), new Ingredient(2l, "Spices"))), 25.99, true));
@@ -36,6 +38,7 @@ public class MenuTest {
         menu.addMenuCategory(mainCourseCategory);
         assertTrue(menu.getMenuCategories().contains(mainCourseCategory));
     }
+
 
     @Test
     public void testRemoveMenuCategory() {
@@ -62,5 +65,30 @@ public class MenuTest {
         menu.addMenuCategory(dessertCategory);
         assertEquals(2, menu.getMenuCategories().size());
     }
+    @Test
+    public void testMenuName() {
+        assertEquals(menuName, menu.getName());
 
+        String newName = "New Menu Name";
+        menu.setName(newName);
+        assertEquals(newName, menu.getName());
+    }
+    @Test
+    public void testMenuNameCannotBeNull() {
+        String name = null;
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> new Menu(name));
+        assertEquals("Name cannot be null", exception.getMessage());
+    }
+
+    @Test
+    public void testMenuNameCannotBeEmpty() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Menu(""));
+        assertEquals("Name cannot be empty String", exception.getMessage());
+    }
+
+    @Test
+    public void testMenuNameCannotBeBlank() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Menu("   "));
+        assertEquals("Name cannot contain only white spaces", exception.getMessage());
+    }
 }

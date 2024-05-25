@@ -17,16 +17,33 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String name;
     @ManyToMany
     @JoinTable(
-            name = "menu_category_menus",
+            name = "menu_categories_menus",
             joinColumns = @JoinColumn(name = "menu_id"),
             inverseJoinColumns = @JoinColumn(name = "menu_category_id")
     )
     private Set<MenuCategory> menuCategories = new HashSet<>();
 
-    public Menu() {
+    public Menu(String name) {
+        validateMenuName(name);
         this.menuCategories = new HashSet<>();
+    }
+
+    private void validateMenuName(String name) {
+        if (name == null) {
+            throw new NullPointerException("Name cannot be null");
+        } else if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty String");
+        } else if (name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot contain only white spaces");
+        }
+        this.name = name;
+    }
+    public void setName(String name) {
+        validateMenuName(name);
     }
 
     public Menu(HashSet<MenuCategory> menuCategories) {
