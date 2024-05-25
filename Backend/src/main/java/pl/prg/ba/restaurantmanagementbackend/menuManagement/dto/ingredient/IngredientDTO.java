@@ -1,11 +1,13 @@
 package pl.prg.ba.restaurantmanagementbackend.menuManagement.dto.ingredient;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
 //TODO
 //  Unit Tests for IngredientDTO
 @Getter
+@AllArgsConstructor
 public class IngredientDTO {
         private String name;
         public void setName(String testIngredient) {

@@ -19,20 +19,16 @@ public class IngredientControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
+    //TODO
+    //  update ingredient class to pass this test
     @Test
     public void testAddIngredient() throws Exception {
-        // Create an IngredientDTO object with test data
-        IngredientDTO ingredientDTO = new IngredientDTO();
-        ingredientDTO.setName("Test Ingredient");
 
-        // Perform a POST request to add the ingredient
+        IngredientDTO ingredientDTO = new IngredientDTO("Test Ingredient");
         mockMvc.perform(MockMvcRequestBuilders.post("/ingredients")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(ingredientDTO)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        // Add assertions to verify that the ingredient was added successfully
-        // You can retrieve the ingredient from the repository and assert its properties
     }
 }
