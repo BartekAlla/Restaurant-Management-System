@@ -15,9 +15,12 @@ public class IngredientService implements IngredientServiceInterface {
     private IngredientRepository ingredientRepository;
 
 
-    public Ingredient addIngredient(IngredientDTO ingredientDTO) {
+    public Ingredient addIngredient(IngredientDTO ingredientDTO) throws IllegalArgumentException{
         if (ingredientDTO.getName() == null) {
             throw new NullPointerException("Name cannot be null");
+        }
+        if (ingredientRepository.findByName(ingredientDTO.getName()).isPresent()) {
+            throw new IllegalArgumentException("Ingredient with name " + ingredientDTO.getName() + " already exists.");
         }
         Ingredient ingredient = new Ingredient(0L, ingredientDTO.getName());
         return ingredientRepository.save(ingredient);
@@ -37,7 +40,7 @@ public class IngredientService implements IngredientServiceInterface {
     public Ingredient updateIngredient(Long id, IngredientDTO ingredientDTO) {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Ingredient not found"));
-    ingredient.setName(ingredientDTO.getName());
+        ingredient.setName(ingredientDTO.getName());
         return ingredientRepository.save(ingredient);
     }
 

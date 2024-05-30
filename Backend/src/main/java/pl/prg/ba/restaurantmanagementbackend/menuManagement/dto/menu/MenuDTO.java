@@ -1,20 +1,18 @@
-package pl.prg.ba.restaurantmanagementbackend.menuManagement.dto.ingredient;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement.dto.menu;
+
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 
 @Getter
 @NoArgsConstructor
-public class IngredientDTO {
+public class MenuDTO {
     private String name;
-
-    public IngredientDTO(String name) {
-        validateIngredientDTOName(name);
+    public MenuDTO(String name) {
+        validateMenuDTOName(name);
     }
 
-    private void validateIngredientDTOName(String name) throws NullPointerException, IllegalArgumentException {
+    private void validateMenuDTOName(String name) throws NullPointerException, IllegalArgumentException {
         if (name == null) {
             throw new NullPointerException("Name cannot be null");
         } else if (name.isEmpty()) {
@@ -25,6 +23,6 @@ public class IngredientDTO {
         this.name = name;
     }
     public void setName(String name) {
-        validateIngredientDTOName(name);
+        validateMenuDTOName(name);
     }
 }

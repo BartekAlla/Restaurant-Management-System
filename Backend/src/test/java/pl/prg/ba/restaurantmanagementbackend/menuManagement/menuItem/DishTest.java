@@ -1,7 +1,8 @@
-package pl.prg.ba.restaurantmanagementbackend.menuManagement;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement.menuItem;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.prg.ba.restaurantmanagementbackend.common.Validators;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Dish;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 
@@ -71,7 +72,7 @@ public class DishTest {
 
     @Test
     public void testDishCreationWithLongDescription() {
-        String longDescription = "a".repeat(Dish.MAX_DESCRIPTION_LENGTH + 1);
+        String longDescription = "a".repeat(Validators.MAX_DESCRIPTION_LENGTH + 1);
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Dish(validName, longDescription, new HashSet<>(validIngredients)));
         assertEquals("Description too long - cannot contain more than 500 signs", exception.getMessage());
     }
@@ -124,7 +125,7 @@ public class DishTest {
         assertEquals("Description cannot be empty String", exception.getMessage());
         exception = assertThrows(IllegalArgumentException.class, () -> dish.setDescription("   "));
         assertEquals("Description cannot contain only white spaces", exception.getMessage());
-        String longDescription = "a".repeat(Dish.MAX_DESCRIPTION_LENGTH + 1);
+        String longDescription = "a".repeat(Validators.MAX_DESCRIPTION_LENGTH + 1);
         exception = assertThrows(IllegalArgumentException.class, () -> dish.setDescription(longDescription));
         assertEquals("Description too long - cannot contain more than 500 signs", exception.getMessage());
     }
