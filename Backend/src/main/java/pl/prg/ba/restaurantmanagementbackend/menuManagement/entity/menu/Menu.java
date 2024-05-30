@@ -2,16 +2,18 @@ package pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menu;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategory;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategoryType;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 @Data
-
 @Entity
+@NoArgsConstructor
 @Table(name = "menus")
 public class Menu {
     @Id
@@ -27,7 +29,8 @@ public class Menu {
     )
     private Set<MenuCategory> menuCategories = new HashSet<>();
 
-    public Menu(String name) {
+    public Menu(Long id, String name) {
+        this.id = id;
         validateMenuName(name);
         this.menuCategories = new HashSet<>();
     }
@@ -42,6 +45,7 @@ public class Menu {
         }
         this.name = name;
     }
+
     public void setName(String name) {
         validateMenuName(name);
     }
@@ -62,5 +66,17 @@ public class Menu {
         return this.menuCategories.stream()
                 .filter(category -> category.getMenuCategoryType().equals(menuCategoryType))
                 .findFirst();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return Objects.equals(id, menu.id) && Objects.equals(name, menu.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

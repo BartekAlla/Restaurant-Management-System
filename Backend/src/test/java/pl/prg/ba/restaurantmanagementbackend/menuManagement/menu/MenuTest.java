@@ -15,14 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuTest {
     private Menu menu;
+    private Long id;
     private String menuName;
     private MenuCategory mainCourseCategory;
     private MenuCategory dessertCategory;
 
     @BeforeEach
     public void setUp() {
+        id = 1L;
         menuName = "menu";
-        menu = new Menu(menuName);
+        menu = new Menu(id, menuName);
 
         HashSet<MenuItem> mainCourseItems = new HashSet<>();
         mainCourseItems.add(new MenuItem("Steak", "Juicy grilled steak", new HashSet<>(Set.of(new Ingredient(1L, "Beef"), new Ingredient(2l, "Spices"))), 25.99, true));
@@ -76,19 +78,19 @@ public class MenuTest {
     @Test
     public void testMenuNameCannotBeNull() {
         String name = null;
-        NullPointerException exception = assertThrows(NullPointerException.class, () -> new Menu(name));
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> new Menu(id, name));
         assertEquals("Name cannot be null", exception.getMessage());
     }
 
     @Test
     public void testMenuNameCannotBeEmpty() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Menu(""));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Menu(id, ""));
         assertEquals("Name cannot be empty String", exception.getMessage());
     }
 
     @Test
     public void testMenuNameCannotBeBlank() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Menu("   "));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Menu(id, "   "));
         assertEquals("Name cannot contain only white spaces", exception.getMessage());
     }
 }
