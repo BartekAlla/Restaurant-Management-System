@@ -8,7 +8,6 @@ import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.In
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.service.ingredient.IngredientService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/ingredients")
