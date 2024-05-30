@@ -16,9 +16,9 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
     @PostMapping
-    public ResponseEntity<?> addIngredient(@RequestBody IngredientDTO ingredientDTO) {
-        ingredientService.addIngredient(ingredientDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Ingredient> addIngredient(@RequestBody IngredientDTO ingredientDTO) {
+        Ingredient ingredient = ingredientService.addIngredient(ingredientDTO);
+        return ResponseEntity.ok(ingredient);
     }
     @GetMapping
     public ResponseEntity<List<Ingredient>> getAllIngredients() {

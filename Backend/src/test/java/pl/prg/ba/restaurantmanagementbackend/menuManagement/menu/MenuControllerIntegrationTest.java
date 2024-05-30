@@ -1,4 +1,4 @@
-package pl.prg.ba.restaurantmanagementbackend.menuManagement.ingredient;
+package pl.prg.ba.restaurantmanagementbackend.menuManagement.menu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -10,60 +10,61 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.dto.ingredient.IngredientDTO;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.dto.menu.MenuDTO;
+import pl.prg.ba.restaurantmanagementbackend.menuManagement.repository.MenuRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IngredientControllerIntegrationTest {
+public class MenuControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private MenuRepository menuRepository;
 
     @Test
-    public void testAddIngredient() throws Exception {
+    public void testAddMenu() throws Exception {
 
-        IngredientDTO ingredientDTO = new IngredientDTO("New Test Ingredient 2");
-        mockMvc.perform(MockMvcRequestBuilders.post("/ingredients")
+        MenuDTO menuDTO = new MenuDTO("March Menu");
+        mockMvc.perform(MockMvcRequestBuilders.post("/menus")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(ingredientDTO)))
+                        .content(objectMapper.writeValueAsString(menuDTO)))
                 .andExpect(status().isOk());
 
     }
-    @Test
-    public void testGetAllIngredients() throws Exception {
-        mockMvc.perform(get("/ingredients"))
-                .andExpect(status().isOk());
-    }
 
     @Test
-    public void testGetIngredientById() throws Exception {
-        Long id = 1L;
-
-        mockMvc.perform(get("/ingredients/{id}", id))
+    public void testGetAllMenus() throws Exception {
+        mockMvc.perform(get("/menus"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testUpdateIngredient() throws Exception {
-        Long id = 1L;
-        IngredientDTO ingredientDTO = new IngredientDTO("Updated Ham");
+    public void testGetMenuById() throws Exception {
+        Long id = menuRepository.findAll().get(0).getId();
+        mockMvc.perform(get("/menus/{id}", id))
+                .andExpect(status().isOk());
+    }
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/ingredients/{id}", id)
+    @Test
+    public void testUpdateMenu() throws Exception {
+        Long id = menuRepository.findAll().get(0).getId();
+        MenuDTO menuDTO = new MenuDTO("Updated Winter Season Menu");
+        mockMvc.perform(MockMvcRequestBuilders.put("/menus/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(ingredientDTO)))
-                        .andExpect(status().isOk());
-
+                        .content(objectMapper.writeValueAsString(menuDTO)))
+                .andExpect(status().isOk());
     }
-    @Test
-    public void testDeleteIngredient() throws Exception {
-        Long id = 4L;
 
-        mockMvc.perform(delete("/ingredients/{id}", id))
+    @Test
+    public void testDeleteMenu() throws Exception {
+        Long id = 2L;
+
+        mockMvc.perform(delete("/menus/{id}", id))
                 .andExpect(status().isNoContent());
     }
 }

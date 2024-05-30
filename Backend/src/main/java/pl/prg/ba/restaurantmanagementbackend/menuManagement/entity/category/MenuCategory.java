@@ -7,6 +7,7 @@ import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menu.Menu;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem.MenuItem;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -53,5 +54,19 @@ public class MenuCategory {
 
     public void setMenuCategoryType(MenuCategoryType menuCategoryType) {
         validateMenuCategoryType(menuCategoryType);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuCategory that = (MenuCategory) o;
+        return Objects.equals(id, that.id) &&
+                menuCategoryType == that.menuCategoryType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, menuCategoryType);
     }
 }

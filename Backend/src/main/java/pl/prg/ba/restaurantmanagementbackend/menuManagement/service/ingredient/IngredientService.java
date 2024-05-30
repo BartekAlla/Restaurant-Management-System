@@ -37,7 +37,7 @@ public class IngredientService implements IngredientServiceInterface {
     public Ingredient updateIngredient(Long id, IngredientDTO ingredientDTO) {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Ingredient not found"));
-    ingredient.setName(ingredientDTO.getName());
+        ingredient.setName(ingredientDTO.getName());
         return ingredientRepository.save(ingredient);
     }
 
