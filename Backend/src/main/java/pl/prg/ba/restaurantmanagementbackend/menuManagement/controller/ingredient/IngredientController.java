@@ -16,10 +16,6 @@ public class IngredientController {
 
     @Autowired
     private IngredientService ingredientService;
-    //TODO
-    // add new endpoints
-    // for new methods
-
     @PostMapping
     public ResponseEntity<?> addIngredient(@RequestBody IngredientDTO ingredientDTO) {
         ingredientService.addIngredient(ingredientDTO);
