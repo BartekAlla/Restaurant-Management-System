@@ -3,6 +3,7 @@ package pl.prg.ba.restaurantmanagementbackend.menuManagement.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.prg.ba.restaurantmanagementbackend.common.Validators;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem.MenuItem;
 
@@ -17,7 +18,7 @@ import java.util.Set;
 @DiscriminatorColumn(name = "dtype")
 @Table(name = "dishes")
 public class Dish {
-    public static final int MAX_DESCRIPTION_LENGTH = 500;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,36 +35,13 @@ public class Dish {
     private Set<MenuItem> menuItems = new HashSet<>();
 
     public Dish(String name, String description, HashSet<Ingredient> ingredients) throws NullPointerException, IllegalArgumentException {
-        validateDishName(name);
-        validateDescription(description);
+        Validators.validateName(name);
+        this.name = name;
+        Validators.validateDishDescription(description);
+        this.description = description;
         validateIngredientsSet(ingredients);
     }
 
-    private void validateDescription(String description) throws NullPointerException, IllegalArgumentException {
-        if (description == null) {
-            throw new NullPointerException("Description cannot be null");
-        } else if (description.length() > MAX_DESCRIPTION_LENGTH) {
-            throw new IllegalArgumentException("Description too long - cannot contain more than 500 signs");
-        } else if (description.isEmpty()) {
-            throw new IllegalArgumentException("Description cannot be empty String");
-        } else if (description.isBlank()) {
-            throw new IllegalArgumentException("Description cannot contain only white spaces");
-        }
-        this.description = description;
-
-    }
-
-    private void validateDishName(String name) throws NullPointerException, IllegalArgumentException {
-        if (name == null) {
-            throw new NullPointerException("Name cannot be null");
-        } else if (name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty String");
-        } else if (name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot contain only white spaces");
-        }
-        this.name = name;
-
-    }
 
     private void validateIngredientsSet(Set<Ingredient> ingredients) throws IllegalArgumentException, NullPointerException {
         if (ingredients == null) {
@@ -76,11 +54,13 @@ public class Dish {
     }
 
     public void setName(String name) {
-        validateDishName(name);
+        Validators.validateName(name);
+        this.name = name;
     }
 
     public void setDescription(String description) {
-        validateDescription(description);
+        Validators.validateDishDescription(description);
+        this.description = description;
     }
 
     public void setIngredients(Set<Ingredient> ingredients) {

@@ -3,6 +3,7 @@ package pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menu;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.prg.ba.restaurantmanagementbackend.common.Validators;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategory;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category.MenuCategoryType;
 
@@ -19,7 +20,7 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
     @ManyToMany
     @JoinTable(
@@ -31,23 +32,15 @@ public class Menu {
 
     public Menu(Long id, String name) {
         this.id = id;
-        validateMenuName(name);
+        Validators.validateName(name);
+        this.name = name;
         this.menuCategories = new HashSet<>();
     }
 
-    private void validateMenuName(String name) {
-        if (name == null) {
-            throw new NullPointerException("Name cannot be null");
-        } else if (name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty String");
-        } else if (name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot contain only white spaces");
-        }
-        this.name = name;
-    }
 
     public void setName(String name) {
-        validateMenuName(name);
+        Validators.validateName(name);
+        this.name = name;
     }
 
     public Menu(HashSet<MenuCategory> menuCategories) {
