@@ -3,6 +3,7 @@ package pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.prg.ba.restaurantmanagementbackend.common.Validators;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.model.Dish;
 
 import java.util.HashSet;
@@ -27,17 +28,7 @@ public class Ingredient {
 
     public Ingredient(Long id, String name) throws NullPointerException, IllegalArgumentException {
         this.id = id;
-        validateIngredientName(name);
-    }
-
-    private void validateIngredientName(String name) throws NullPointerException, IllegalArgumentException {
-        if (name == null) {
-            throw new NullPointerException("Name cannot be null");
-        } else if (name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty String");
-        } else if (name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot contain only white spaces");
-        }
+        Validators.validateName(name);
         this.name = name;
     }
 
@@ -54,7 +45,8 @@ public class Ingredient {
         return Objects.hash(id, name);
     }
 
-    public void setName(String name) {
-        validateIngredientName(name);
+    public void setName(String name) throws NullPointerException, IllegalArgumentException {
+        Validators.validateName(name);
+        this.name = name;
     }
 }
