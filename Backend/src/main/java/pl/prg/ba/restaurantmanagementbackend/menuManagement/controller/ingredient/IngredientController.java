@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.dto.ingredient.IngredientDTO;
-import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.ingredient.Ingredient;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.service.ingredient.IngredientService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/ingredients")

@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-//TODO
-//  Unit Tests for IngredientDTO
 @Getter
 @NoArgsConstructor
 public class IngredientDTO {
