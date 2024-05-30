@@ -6,10 +6,9 @@ import lombok.Setter;
 
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class IngredientDTO {
-        private String name;
+    private String name;
 
     public IngredientDTO(String name) {
         validateIngredientDTOName(name);
