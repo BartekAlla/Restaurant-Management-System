@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 function App() {
     return (
         <Layout>
-            <Typography variant="h4" gutterBottom>
+            <Typography>
                 Welcome to the restaurant management application
             </Typography>
         </Layout>

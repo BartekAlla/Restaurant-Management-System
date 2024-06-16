@@ -1,10 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
- //TODO - make this shape a wavy rectangle, add color to it and add background color
-
-
-const Shape = ({ children }) => {
+const Shape = ({children, width = '97%', height = '95%'}) => {
     return (
         <Box
             sx={{
@@ -12,25 +9,25 @@ const Shape = ({ children }) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: '100vh',
-                backgroundColor: '#f5f5f5', // Kolor tła
-                backgroundImage: 'url("/paper-texture.jpg")', // Obraz tła
+                backgroundColor: '#1c2c4b',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
             }}
         >
+
             <Box
                 sx={{
-                    width: '300px', // Szerokość kształtu
-                    height: '300px', // Wysokość kształtu
-                    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Kolor tła kształtu
-                    borderRadius: '50%', // Zaokrąglenie kształtu (tu: koło)
+                    width: width,
+                    height: height,
+                    backgroundColor: '#f5f3ea',
+                    clipPath: 'polygon(0% 11%, 5% 0%, 95% 0%, 100% 11%, 100% 95%, 95% 100%, 5% 100%, 0% 95%)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
-                    padding: '20px',
+                    padding: '5px',
                 }}
             >
                 {children}

@@ -29,7 +29,7 @@ function MenuPage() {
         <Layout>
             <Container>
                 <Typography variant="h4" gutterBottom>
-                    Menu
+                    Menus
                 </Typography>
                 <List>
                     {menu.map(item => (
