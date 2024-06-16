@@ -15,7 +15,6 @@ const Shape = ({children, width = '97%', height = '95%'}) => {
                 backgroundPosition: 'center',
             }}
         >
-
             <Box
                 sx={{
                     width: width,
@@ -24,10 +23,11 @@ const Shape = ({children, width = '97%', height = '95%'}) => {
                     clipPath: 'polygon(0% 11%, 5% 0%, 95% 0%, 100% 11%, 100% 95%, 95% 100%, 5% 100%, 0% 95%)',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: 'center',
                     padding: '5px',
+                    position: 'relative',
+                    zIndex: 1,
                 }}
             >
                 {children}
