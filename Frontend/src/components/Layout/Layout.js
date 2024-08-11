@@ -26,6 +26,7 @@ const Layout = ({ children }) => {
     const classes = useStyles();
 
     return (
+
         <Box className={classes.layoutContainer}>
             <Shape>
                 <NavBar />

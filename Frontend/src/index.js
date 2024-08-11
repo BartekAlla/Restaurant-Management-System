@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import MenuPage from './pages/MenuPage';
@@ -8,9 +8,7 @@ import OurStoryPage from "./pages/OurStoryPage";
 import HomePage from "./pages/HomePage";
 import ReservationPage from "./pages/ReservationPage";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(
+ReactDOM.render(
     <React.StrictMode>
         <CssBaseline />
         <Router>
@@ -21,5 +19,6 @@ root.render(
                 <Route path="/reservation" element={<ReservationPage />} />
             </Routes>
         </Router>
-    </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById('root')  // Pass this directly to ReactDOM.render
 );
