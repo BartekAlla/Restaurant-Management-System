@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import Layout from '../components/Layout/Layout';
+import Layout from '../../components/Layout/Layout';
 import Container from '@mui/material/Container';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import {getMenu} from "../services/menuService";
+import {getMenu} from "../../services/menuService";
+import Button from "@mui/material/Button";
+import {ButtonGroup} from "@mui/material";
+import './MenuPage.css';
 
 
 function MenuPage() {
@@ -17,12 +17,14 @@ function MenuPage() {
 
     const fetchMenu = async () => {
         try {
-            // Pobranie danych menu
             const response = await getMenu();
             setMenu(response.data);
         } catch (error) {
             console.error('Błąd podczas pobierania menu:', error);
         }
+    };
+    const handleMenuClick = (menuId) => {
+        localStorage.setItem('selectedMenu', menuId);
     };
 
     return (
@@ -31,13 +33,13 @@ function MenuPage() {
                 <Typography variant="h4" gutterBottom>
                     Menus
                 </Typography>
-                <List>
+                <ButtonGroup className="menuChoiceButton" variant="text">
                     {menu.map(item => (
-                        <ListItem key={item.id}>
-                            <ListItemText primary={item.name}/>
-                        </ListItem>
+                        <Button onClick={() => handleMenuClick(item.id)} key={item.id}>
+                            {item.name}
+                        </Button>
                     ))}
-                </List>
+                </ButtonGroup>
             </Container>
         </Layout>
     );
