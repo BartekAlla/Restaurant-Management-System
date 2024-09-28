@@ -3,6 +3,7 @@ package pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.category;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.prg.ba.restaurantmanagementbackend.common.Validators;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menu.Menu;
 import pl.prg.ba.restaurantmanagementbackend.menuManagement.entity.menuItem.MenuItem;
 
@@ -69,4 +70,6 @@ public class MenuCategory {
     public int hashCode() {
         return Objects.hash(id, menuCategoryType);
     }
+
+
 }
