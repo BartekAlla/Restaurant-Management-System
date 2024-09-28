@@ -31,6 +31,7 @@ public class MenuCategoryDTOTest {
         categoryDTO.setMenuCategoryType(newMenuCategoryType);
         assertEquals(newMenuCategoryType, categoryDTO.getMenuCategoryType());
     }
+    //TODO make this test pass
     @Test
     public void testSettingNullCategoryType() {
         Exception exception = assertThrows(NullPointerException.class, () -> categoryDTO.setMenuCategoryType(null));
